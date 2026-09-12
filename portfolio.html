@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- STEP 1: Basic HTML Setup -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Samuel Ratan — CSE</title>
+
+    <!-- STEP 2: Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- STEP 3 to 14: Complete CSS Styling -->
+    <style>
+        /* STEP 3: Color Palette */
+        :root {
+            --bg: #0E1013;
+            --ink: #F1F2F4;
+            --ink-soft: #9BA0A8;
+            --line: #2A2D33;
+            --accent: #FF4757;
+            --accent-soft: rgba(255,71,87,.15);
+            --green: #FF6B7A;
+            --green-soft: rgba(255,107,122,.15);
+            --coral: #E63946;
+            --coral-soft: rgba(230,57,70,.15);
+            --violet: #D4A574;
+            --violet-soft: rgba(212,165,116,.16);
+            --panel: #16181D;
+            --terminal-bg: #05060A;
+        }
+
+        /* STEP 4: Reset & Body Styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* STEP 5: Typography */
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* STEP 6: Navigation Bar */
+        header.nav {
+            padding: 28px 0 0;
+        }
+
+        .nav .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav .name {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: .01em;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink-soft);
+        }
+
+        .nav a:hover {
+            color: var(--ink);
+        }
+
+        /* STEP 7: Hero Section Background */
+        .hero {
+            padding: 90px 0 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -160px;
+            right: -140px;
+            width: 480px;
+            height: 480px;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,71,87,.35), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(230,57,70,.28), transparent 60%),
+                radial-gradient(circle at 50% 90%, rgba(212,165,116,.24), transparent 60%);
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero .wrap {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* STEP 8: Solar System Animation */
+        .orbit-system {
+            position: absolute;
+            top: 50%;
+            right: -60px;
+            transform: translateY(-50%);
+            width: 320px;
+            height: 320px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orbit-system .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            margin: -15px 0 0 -15px;
+            border-radius: 50%;
+            background: conic-gradient(from 200deg, var(--accent), var(--violet), var(--coral), var(--accent));
+            box-shadow: 0 0 32px rgba(255,71,87,.6);
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            animation: spin linear infinite;
+        }
+
+        .orbit-1 {
+            width: 110px;
+            height: 110px;
+            margin: -55px 0 0 -55px;
+            animation-duration: 14s;
+        }
+
+        .orbit-2 {
+            width: 180px;
+            height: 180px;
+            margin: -90px 0 0 -90px;
+            animation-duration: 24s;
+            animation-direction: reverse;
+        }
+
+        .orbit-3 {
+            width: 250px;
+            height: 250px;
+            margin: -125px 0 0 -125px;
+            animation-duration: 34s;
+        }
+
+        .orbit-4 {
+            width: 320px;
+            height: 320px;
+            margin: -160px 0 0 -160px;
+            animation-duration: 46s;
+            animation-direction: reverse;
+        }
+
+        .planet {
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            margin-left: -7px;
+            border-radius: 50%;
+        }
+
+        .planet.p-blue {
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(255,71,87,.75);
+            animation: glowPulse 2.5s ease-in-out infinite;
+        }
+
+        .planet.p-green {
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(255,107,122,.7);
+            animation: glowPulse 2.5s ease-in-out infinite .3s;
+        }
+
+        .planet.p-violet {
+            background: var(--violet);
+            box-shadow: 0 0 12px rgba(212,165,116,.7);
+            animation: glowPulse 2.5s ease-in-out infinite .6s;
+        }
+
+        .planet.p-coral {
+            background: var(--coral);
+            width: 11px;
+            height: 11px;
+            margin-left: -5.5px;
+            top: -5.5px;
+            box-shadow: 0 0 12px rgba(230,57,70,.7);
+            animation: glowPulse 2.5s ease-in-out infinite .9s;
+        }
+
+        /* STEP 9: Animations */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 20px rgba(255,71,87,.6); }
+            50% { box-shadow: 0 0 40px rgba(255,71,87,.9); }
+            100% { box-shadow: 0 0 20px rgba(255,71,87,.6); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes reveal {
+            to { opacity: 1; }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        @media(prefers-reduced-motion: reduce) {
+            .orbit { animation: none; }
+        }
+
+        .orbit-legend {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-size: 12.5px;
+            color: var(--ink-soft);
+            margin: -6px 0 30px;
+        }
+
+        .orbit-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .orbit-legend i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        @media(max-width: 700px) {
+            .orbit-system {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                width: 180px;
+                height: 180px;
+                margin: 0 auto 24px;
+            }
+            .orbit-1 { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
+            .orbit-2 { width: 104px; height: 104px; margin: -52px 0 0 -52px; }
+            .orbit-3 { width: 144px; height: 144px; margin: -72px 0 0 -72px; }
+            .orbit-4 { width: 180px; height: 180px; margin: -90px 0 0 -90px; }
+        }
+
+        .hero .kicker {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            font-weight: 700;
+            margin: 0 0 16px;
+        }
+
+        /* STEP 11: Title & Heading Styles */
+        .hero h1 .highlight {
+            background: linear-gradient(100deg, var(--accent) 0%, var(--coral) 50%, var(--violet) 100%);
+            color: #F1F2F4;
+            padding: 2px 12px;
+            border-radius: 8px;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            font-weight: 800;
+        }
+
+        .hero .tagline {
+            font-size: 19px;
+            font-weight: 600;
+            background: linear-gradient(100deg, var(--accent), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 14px;
+            max-width: 22ch;
+        }
+
+        .hero p.lede {
+            font-size: 17px;
+            color: var(--ink-soft);
+            max-width: 46ch;
+            margin: 0 0 30px;
+        }
+
+        .terminal {
+            background: var(--terminal-bg);
+            color: #E8E9EC;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 18px 20px;
+            font-family: 'Poppins', monospace;
+            font-size: 13.5px;
+            max-width: 420px;
+        }
+
+        .terminal .line {
+            opacity: 0;
+            animation: reveal .4s forwards;
+        }
+
+        .terminal .l1 { animation-delay: .1s; }
+        .terminal .l2 { animation-delay: .5s; }
+        .terminal .l3 { animation-delay: .9s; }
+        .terminal .l4 { animation-delay: 1.3s; color: #7C8CFF; }
+
+        .cursor {
+            display: inline-block;
+            width: 7px;
+            height: 14px;
+            background: #7C8CFF;
+            margin-left: 2px;
+            animation: blink 1s step-start infinite;
+            vertical-align: middle;
+        }
+
+        section {
+            padding: 56px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        section h2 {
+            font-size: 13px;
+            color: var(--ink-soft);
+            font-weight: 600;
+            margin: 0 0 28px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: linear-gradient(90deg, var(--accent), var(--coral), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp .6s ease-out forwards;
+            opacity: 0;
+        }
+
+        section h2::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--sec-color, var(--accent));
+            flex: none;
+        }
+
+        #about h2 { --sec-color: var(--accent); }
+        #journey h2 { --sec-color: var(--green); }
+        #skills h2 { --sec-color: var(--violet); }
+        #interests h2 { --sec-color: var(--coral); }
+        #projects h2 { --sec-color: var(--violet); }
+        #contact h2 { --sec-color: var(--accent); }
+
+        /* STEP 10: Avatar Badge */
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: conic-gradient(from 200deg, var(--accent), var(--violet), var(--coral), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        .avatar span {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--ink);
+        }
+
+        .about p {
+            font-size: 16px;
+            max-width: 58ch;
+            margin: 0 0 16px;
+        }
+
+        /* STEP 18: Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: linear-gradient(var(--green), var(--accent), var(--coral));
+            opacity: .35;
+        }
+
+        .tl-item {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 20px;
+            position: relative;
+            padding-left: 18px;
+            animation: fadeInUp .7s ease-out forwards;
+            opacity: 0;
+        }
+
+        .tl-item:nth-child(1) { animation-delay: .2s; }
+        .tl-item:nth-child(2) { animation-delay: .4s; }
+        .tl-item:nth-child(3) { animation-delay: .6s; }
+
+        .tl-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--dot, var(--accent));
+            box-shadow: 0 0 0 3px var(--bg);
+        }
+
+        .tl-item.done { --dot: var(--green); }
+        .tl-item.active { --dot: var(--accent); }
+        .tl-item.next { --dot: var(--coral); }
+
+        .tl-when {
+            font-size: 13px;
+            color: var(--ink-soft);
+            padding-top: 2px;
+        }
+
+        .tl-body h3 {
+            font-size: 16px;
+            margin: 0 0 4px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .tl-body p {
+            margin: 0;
+            color: var(--ink-soft);
+            font-size: 14.5px;
+            max-width: 52ch;
+        }
+
+        /* STEP 19: Skills Cards */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill {
+            border: 1px solid var(--line);
+            border-top: 3px solid var(--dot, var(--accent));
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 14px 16px;
+            transition: transform .15s ease, box-shadow .15s ease;
+            animation: fadeInUp .6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .skill:nth-child(1) { animation-delay: .1s; }
+        .skill:nth-child(2) { animation-delay: .2s; }
+        .skill:nth-child(3) { animation-delay: .3s; }
+        .skill:nth-child(4) { animation-delay: .4s; }
+
+        .skill:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(255,71,87,.25);
+        }
+
+        .skill.c-blue { --dot: var(--accent); }
+        .skill.c-green { --dot: var(--green); }
+        .skill.c-violet { --dot: var(--violet); }
+        .skill.c-coral { --dot: var(--coral); }
+
+        .skill .cat {
+            font-size: 12.5px;
+            color: var(--ink-soft);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .skill .items {
+            font-size: 14.5px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* STEP 20: Interests */
+        #interests {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #interests::before {
+            content: "";
+            position: absolute;
+            bottom: -120px;
+            left: -100px;
+            width: 340px;
+            height: 340px;
+            background:
+                radial-gradient(circle at 40% 40%, rgba(230,57,70,.26), transparent 60%),
+                radial-gradient(circle at 60% 60%, rgba(212,165,116,.2), transparent 60%);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        #interests .wrap {
+            position: relative;
+            z-index: 1;
+        }
+
+        .interests-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .chip {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 7px 14px;
+            border-radius: 100px;
+            background: var(--bg-chip);
+            color: var(--fg-chip);
+            transition: transform .3s ease, box-shadow .3s ease;
+            animation: fadeInUp .5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .chip:nth-child(1) { animation-delay: .1s; }
+        .chip:nth-child(2) { animation-delay: .2s; }
+        .chip:nth-child(3) { animation-delay: .3s; }
+        .chip:nth-child(4) { animation-delay: .4s; }
+
+        .chip:hover {
+            transform: scale(1.08) translateY(-3px);
+        }
+
+        .stat-box {
+            border: 1px solid var(--coral);
+            background: var(--coral-soft);
+            border-radius: 8px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            animation: fadeInUp .6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .stat-box .num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .stat-box .label {
+            font-size: 13.5px;
+            color: var(--ink-soft);
+        }
+
+        /* STEP 21: Projects */
+        .project-note {
+            border: 1px dashed var(--line);
+            border-radius: 10px;
+            padding: 26px 24px;
+            background: var(--panel);
+            transition: border-color .15s ease;
+            animation: fadeInUp .6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .project-note:hover {
+            border-color: var(--accent);
+        }
+
+        .project-note h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+            background: linear-gradient(90deg, var(--coral), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .project-note p {
+            margin: 0 0 14px;
+            color: var(--ink-soft);
+            font-size: 14.5px;
+            max-width: 52ch;
+        }
+
+        .tag {
+            font-size: 12.5px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+
+        /* STEP 22: Contact Links */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .contact-links a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color .15s ease, padding-left .15s ease;
+            animation: fadeInUp .6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .contact-links a:nth-child(1) { animation-delay: .1s; }
+        .contact-links a:nth-child(2) { animation-delay: .2s; }
+        .contact-links a:nth-child(3) { animation-delay: .3s; }
+
+        .contact-links a:last-child {
+            border-bottom: none;
+        }
+
+        .contact-links a:hover {
+            color: var(--accent);
+            padding-left: 6px;
+            animation: bounce .6s ease-in-out;
+        }
+
+        .contact-links span.sub {
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        footer {
+            padding: 36px 0 60px;
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        @media(max-width: 560px) {
+            .hero { padding: 60px 0 50px; }
+            .hero h1 { font-size: 34px; }
+            .skill-grid { grid-template-columns: 1fr; }
+            .nav ul { gap: 14px; font-size: 13px; }
+            .tl-item { grid-template-columns: 70px 1fr; gap: 14px; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- STEP 15: Navigation -->
+    <header class="nav">
+        <div class="wrap">
+            <span class="name">Samuel Ratan</span>
+            <ul>
+                <li><a href="#about">About</a>
+                <li><a href="#skills">Skills</a>
+                <li><a href="#interests">Interests</a>
+                <li><a href="#projects">Projects</a>
+                <li><a href="#contact">Contact</a>
+            </ul>
+        </div>
+    </header>
+
+    <!-- STEP 16: Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <!-- Solar System -->
+                <div class="orbit-system" aria-hidden="true">
+                    <div class="orbit orbit-1"><span class="planet p-blue" title="Code"></span></div>
+                    <div class="orbit orbit-2"><span class="planet p-green" title="Learning"></span></div>
+                    <div class="orbit orbit-3"><span class="planet p-violet" title="Drawing"></span></div>
+                    <div class="orbit orbit-4"><span class="planet p-coral" title="Sports"></span></div>
+                    <div class="sun"></div>
+                </div>
+
+                <!-- Avatar -->
+                <div class="avatar"><span>SR</span></div>
+
+                <!-- Title & Intro -->
+                <div class="kicker">CSE — Data Science, 1st Year</div>
+                <h1><span class="highlight">Samuel Ratan</span></h1>
+                <p class="tagline">Building the fundamentals, one problem at a time.</p>
+                <p class="lede">First-year Computer Science & Data Science student. Early in the journey, learning in public, and figuring out what I want to build.</p>
+
+                <!-- Legend -->
+                <div class="orbit-legend">
+                    <span><i style="background:var(--accent)"></i>Code</span>
+                    <span><i style="background:var(--green)"></i>Learning</span>
+                    <span><i style="background:var(--violet)"></i>Drawing</span>
+                    <span><i style="background:var(--coral)"></i>Sports</span>
+                </div>
+
+                <!-- Terminal -->
+                <div class="terminal">
+                    <div class="line l1">$ whoami</div>
+                    <div class="line l2">samuel_ratan — cse_ds, year_1</div>
+                    <div class="line l3">$ status</div>
+                    <div class="line l4">learning_the_fundamentals<span class="cursor"></span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 17: About Section -->
+        <section id="about">
+            <div class="wrap">
+                <h2>About</h2>
+                <div class="about">
+                    <p>I'm in my first year of a Computer Science and Engineering degree with a specialization in Data Science. Right now most of my time goes into coursework, core programming, and getting comfortable with how data, logic, and code fit together.</p>
+                    <p>I don't have shipped projects yet — this site will grow as I build. Consider this the starting point.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 18: Journey/Timeline Section -->
+        <section id="journey">
+            <div class="wrap">
+                <h2>Where I'm at</h2>
+                <div class="timeline">
+                    <div class="tl-item done">
+                        <div class="tl-when">Year 1</div>
+                        <div class="tl-body">
+                            <h3>Core foundations</h3>
+                            <p>Programming fundamentals, data structures basics, and mathematics for computing.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item active">
+                        <div class="tl-when">Now</div>
+                        <div class="tl-body">
+                            <h3>Self-directed learning</h3>
+                            <p>Picking up Python and exploring the basics of data science alongside the coursework.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item next">
+                        <div class="tl-when">Next</div>
+                        <div class="tl-body">
+                            <h3>First real project</h3>
+                            <p>Aiming to ship something small and real in the next few months — this section will link to it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 19: Skills Section -->
+        <section id="skills">
+            <div class="wrap">
+                <h2>Currently learning</h2>
+                <div class="skill-grid">
+                    <div class="skill c-blue">
+                        <div class="cat">Languages</div>
+                        <div class="items">Python, HTML, CSS</div>
+                    </div>
+                    <div class="skill c-green">
+                        <div class="cat">Foundations</div>
+                        <div class="items">Data Structures</div>
+                    </div>
+                    <div class="skill c-violet">
+                        <div class="cat">Tools</div>
+                        <div class="items">Git, VS Code</div>
+                    </div>
+                    <div class="skill c-coral">
+                        <div class="cat">Track</div>
+                        <div class="items">Data Science basics</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 20: Interests Section -->
+        <section id="interests">
+            <div class="wrap">
+                <h2>Outside the coursework</h2>
+                <div class="about">
+                    <p>I draw and read when I'm not studying, and I watch cricket and football whenever a good match is on. I'd describe myself as smart and enthusiastic — someone who picks things up quickly and stays curious about them.</p>
+                    <p>I also play EA Sports FC Mobile — enough to call myself a pro at it. My best season, I climbed to 20 stars.</p>
+                </div>
+                <div class="interests-row">
+                    <div class="stat-box">
+                        <span class="num">20★</span>
+                        <span class="label">highest rank, FC Mobile</span>
+                    </div>
+                    <span class="chip" style="--bg-chip:var(--violet-soft);--fg-chip:var(--violet);">Drawing</span>
+                    <span class="chip" style="--bg-chip:var(--green-soft);--fg-chip:var(--green);">Reading</span>
+                    <span class="chip" style="--bg-chip:var(--accent-soft);--fg-chip:var(--accent);">Cricket & football</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 21: Projects Section -->
+        <section id="projects">
+            <div class="wrap">
+                <h2>Projects</h2>
+                <div class="project-note">
+                    <h3>Nothing shipped yet — and that's fine.</h3>
+                    <p>This is where my first project will live once it's built. First year is for laying the groundwork.</p>
+                    <div class="tags">
+                        <span class="tag">Coming soon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 22: Contact Section -->
+        <section id="contact">
+            <div class="wrap">
+                <h2>Contact</h2>
+                <div class="contact-links">
+                    <a href="mailto:samuelsujatha2@gmail.com">
+                        Email <span class="sub">samuelsujatha2@gmail.com</span>
+                    </a>
+                    <a href="https://github.com/Samuel2Ratan" target="_blank" rel="noopener">
+                        GitHub <span class="sub">@Samuel2Ratan</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/samuel-ratan-84b76a434/" target="_blank" rel="noopener">
+                        LinkedIn <span class="sub">/in/samuel-ratan-84b76a434</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- STEP 23: Footer -->
+    <footer>
+        <div class="wrap">Samuel Ratan — updated as I build.</div>
+    </footer>
+
+</body>
+</html>
