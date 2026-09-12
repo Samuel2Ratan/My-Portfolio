@@ -47,18 +47,3 @@ Or run a local static server with Python:
 python -m http.server 8000
 # Then visit http://localhost:8000
 ```
-
-## 🌐 Deploying to GitHub Pages
-
-1. Create a repository on your GitHub account (e.g. `Samuel2Ratan/portfolio` or `Samuel2Ratan.github.io`).
-2. Push this folder to your repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit of interactive portfolio"
-   git branch -M main
-   git remote add origin https://github.com/Samuel2Ratan/portfolio.git
-   git push -u origin main
-   ```
-3. Go to **Settings** &rarr; **Pages** &rarr; Select `main` branch / root folder &rarr; Click **Save**.
-4. Your site will be live within seconds!
